@@ -1,16 +1,16 @@
-﻿using CarsSystem.Services.Data.Contracts;
+﻿using CarsSystem.MVP.CarDetails;
+using CarsSystem.Services.Data.Contracts;
 using Ninject;
 using System;
+using WebFormsMvp;
+using WebFormsMvp.Web;
 
 namespace CarsSystem.WebForms.Client.Cars
 {
-    public partial class CarDetails : System.Web.UI.Page
+    [PresenterBinding(typeof(CarDetailsPresenter))]
+    public partial class CarDetails : MvpPage<CarDetailsViewModel>, ICarDetailsViewModel
     {
-        [Inject]
-        public IUsersService UsersService { get; set; }
-
-        [Inject]
-        public ICarsService CarsService { get; set; }
+        public event EventHandler<CarGetDataEventArgs> OnCarGetData;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -20,8 +20,10 @@ namespace CarsSystem.WebForms.Client.Cars
             }
 
             var id = int.Parse(this.Request.QueryString["id"]);
-            var car = CarsService.GetCarById(id);
-            var userId = UsersService.GetUserId(car);
+            this.OnCarGetData?.Invoke(this, new CarGetDataEventArgs(id));
+
+            var car = this.Model.Car;
+            var userId = this.Model.UserId;
 
             this.ManufacturerLabel.Text = car.Manufacturer;
             this.ModelLabel.Text = car.Model;
