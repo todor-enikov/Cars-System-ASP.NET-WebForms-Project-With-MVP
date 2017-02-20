@@ -1,18 +1,21 @@
-﻿using CarsSystem.Services.Data.Contracts;
+﻿using CarsSystem.MVP.FilterByVignette;
+using CarsSystem.Services.Data.Contracts;
 using Ninject;
 using System;
 using System.Linq;
 using System.Web.UI.WebControls;
+using WebFormsMvp;
+using WebFormsMvp.Web;
 
 namespace CarsSystem.WebForms.Client.Filters
 {
-    public partial class FilterByVignette : System.Web.UI.Page
+    [PresenterBinding(typeof(FilterByVignettePresenter))]
+    public partial class FilterByVignette : MvpPage<FilterByVignetteViewModel>, IFilterByVignetteViewModel
     {
         [Inject]
         public IMailService MailService { get; set; }
 
-        [Inject]
-        public IFilterService FilterService { get; set; }
+        public event EventHandler OnFilteredCars;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,7 +24,9 @@ namespace CarsSystem.WebForms.Client.Filters
                 Response.Redirect("~/ErrorPages/UnauthorizedAccess.aspx");
             }
 
-            var filteredCars = FilterService.FilterExpiringVignetteCars().ToList();
+            this.OnFilteredCars?.Invoke(this, null);
+
+            var filteredCars = this.Model.FilteredCars.ToList();
             this.FilterGridView.DataSource = filteredCars;
             this.FilterGridView.DataBind();
         }
@@ -31,7 +36,7 @@ namespace CarsSystem.WebForms.Client.Filters
             var subject = this.EmailSubjectTextBox.Text;
             var content = this.EmailContentBox.Text;
 
-            var emails = FilterService.GetMailsForCarsVignetteExpiration().ToList();
+            var emails = this.Model.FilteredEmails.ToList();
             MailService.SendEmail(subject, content, emails);
         }
     }

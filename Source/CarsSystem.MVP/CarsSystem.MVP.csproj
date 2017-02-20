@@ -65,6 +65,9 @@
     <Compile Include="FilterByInsurance\FilterByInsurancePresenter.cs" />
     <Compile Include="FilterByInsurance\FilterByInsuranceViewModel.cs" />
     <Compile Include="FilterByInsurance\IFilterByInsuranceViewModel.cs" />
+    <Compile Include="FilterByVignette\FilterByVignettePresenter.cs" />
+    <Compile Include="FilterByVignette\FilterByVignetteViewModel.cs" />
+    <Compile Include="FilterByVignette\IFilterByVignetteViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -72,7 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AddCustomer\" />
-    <Folder Include="FilterByVignette\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\CarsSystem.Data.Models\CarsSystem.Data.Models.csproj">

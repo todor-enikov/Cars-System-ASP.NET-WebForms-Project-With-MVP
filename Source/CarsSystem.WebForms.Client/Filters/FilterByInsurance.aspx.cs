@@ -23,6 +23,7 @@ namespace CarsSystem.WebForms.Client.Filters
             {
                 Response.Redirect("~/ErrorPages/UnauthorizedAccess.aspx");
             }
+
             this.OnFilteredCars?.Invoke(this, null);
 
             var filteredCars = this.Model.FilteredCars.ToList();
