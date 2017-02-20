@@ -1,16 +1,16 @@
-﻿using CarsSystem.Services.Data.Contracts;
+﻿using CarsSystem.MVP.CustomerDetails;
+using CarsSystem.Services.Data.Contracts;
 using Ninject;
 using System;
+using WebFormsMvp;
+using WebFormsMvp.Web;
 
 namespace CarsSystem.WebForms.Client.Customers
 {
-    public partial class CustomerDetails : System.Web.UI.Page
+    [PresenterBinding(typeof(CustomerDetailsPresenter))]
+    public partial class CustomerDetails : MvpPage<CustomerDetailsViewModel>, ICustomerDetailsViewModel
     {
-        [Inject]
-        public IUsersService UsersService { get; set; }
-
-        [Inject]
-        public ICarsService CarsService { get; set; }
+        public event EventHandler<CustomerDetailsEventArgs> OnCustomerDetails;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -20,7 +20,8 @@ namespace CarsSystem.WebForms.Client.Customers
             }
 
             var id = this.Request.QueryString["id"];
-            var user = UsersService.GetUserById(id);
+            this.OnCustomerDetails?.Invoke(this, new CustomerDetailsEventArgs(id));
+            var user = this.Model.User;
 
             this.FirstnameLabel.Text = user.FirstName;
             this.SecondNameLabel.Text = user.SecondName;
@@ -33,7 +34,7 @@ namespace CarsSystem.WebForms.Client.Customers
             this.EmailLabel.Text = user.Email;
 
 
-            var carId = CarsService.GetCarId(user);
+            var carId = this.Model.CarId;
             this.CheckCustomerCarLabel.NavigateUrl = "~/Cars/CarDetails.aspx?id=" + carId;
         }
     }
