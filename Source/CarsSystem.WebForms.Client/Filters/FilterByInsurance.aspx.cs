@@ -1,18 +1,21 @@
-﻿using CarsSystem.Services.Data.Contracts;
+﻿using CarsSystem.MVP.FilterByInsurance;
+using CarsSystem.Services.Data.Contracts;
 using Ninject;
 using System;
 using System.Linq;
 using System.Web.UI.WebControls;
+using WebFormsMvp;
+using WebFormsMvp.Web;
 
 namespace CarsSystem.WebForms.Client.Filters
 {
-    public partial class FilterByInsurance : System.Web.UI.Page
+    [PresenterBinding(typeof(FilterByInsurancePresenter))]
+    public partial class FilterByInsurance : MvpPage<FilterByInsuranceViewModel>, IFilterByInsuranceViewModel
     {
         [Inject]
         public IMailService MailService { get; set; }
 
-        [Inject]
-        public IFilterService FilterService { get; set; }
+        public event EventHandler OnFilteredCars;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -20,8 +23,9 @@ namespace CarsSystem.WebForms.Client.Filters
             {
                 Response.Redirect("~/ErrorPages/UnauthorizedAccess.aspx");
             }
+            this.OnFilteredCars?.Invoke(this, null);
 
-            var filteredCars = FilterService.FilterExpiringInsurance().ToList();
+            var filteredCars = this.Model.FilteredCars.ToList();
             this.FilterGridView.DataSource = filteredCars;
             this.FilterGridView.DataBind();
         }
@@ -31,7 +35,7 @@ namespace CarsSystem.WebForms.Client.Filters
             var subject = this.EmailSubjectTextBox.Text;
             var content = this.EmailContentBox.Text;
 
-            var emails = FilterService.GetMailsForCarsInsuranceExpiration().ToList();
+            var emails = this.Model.FilteredEmails.ToList();
             MailService.SendEmail(subject, content, emails);
         }
     }

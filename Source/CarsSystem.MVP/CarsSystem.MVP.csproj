@@ -62,6 +62,9 @@
     <Compile Include="FilterByAnnualCheckUp\FilterByAnnualPresenter.cs" />
     <Compile Include="FilterByAnnualCheckUp\FilterByAnnualViewModel.cs" />
     <Compile Include="FilterByAnnualCheckUp\IFilterByAnnualViewModel.cs" />
+    <Compile Include="FilterByInsurance\FilterByInsurancePresenter.cs" />
+    <Compile Include="FilterByInsurance\FilterByInsuranceViewModel.cs" />
+    <Compile Include="FilterByInsurance\IFilterByInsuranceViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -69,7 +72,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AddCustomer\" />
-    <Folder Include="FilterByInsurance\" />
     <Folder Include="FilterByVignette\" />
   </ItemGroup>
   <ItemGroup>
