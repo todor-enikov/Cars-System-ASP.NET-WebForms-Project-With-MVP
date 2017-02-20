@@ -47,6 +47,10 @@
     <Compile Include="AllCars\AllCarsPresenter.cs" />
     <Compile Include="AllCars\AllCarsViewModel.cs" />
     <Compile Include="AllCars\IAllCarsViewModel.cs" />
+    <Compile Include="AllCustomers\AllCustomersPresenter.cs" />
+    <Compile Include="AllCustomers\AllCustomersViewModel.cs" />
+    <Compile Include="AllCustomers\IAllCustomersViewModel.cs" />
+    <Compile Include="AllCustomers\UserGetDataEventArgs.cs" />
     <Compile Include="CarDetails\CarDetailsPresenter.cs" />
     <Compile Include="CarDetails\CarDetailsViewModel.cs" />
     <Compile Include="CarDetails\CarGetDataEventArgs.cs" />
@@ -58,7 +62,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AddCustomer\" />
-    <Folder Include="AllCustomers\" />
     <Folder Include="CustomerDetails\" />
     <Folder Include="FilterByAnnualCheckUp\" />
     <Folder Include="FilterByInsurance\" />
