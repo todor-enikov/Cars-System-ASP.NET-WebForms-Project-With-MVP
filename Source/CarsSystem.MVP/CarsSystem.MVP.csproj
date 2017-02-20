@@ -59,6 +59,9 @@
     <Compile Include="CustomerDetails\CustomerDetailsPresenter.cs" />
     <Compile Include="CustomerDetails\CustomerDetailsViewModel.cs" />
     <Compile Include="CustomerDetails\ICustomerDetailsViewModel.cs" />
+    <Compile Include="FilterByAnnualCheckUp\FilterByAnnualPresenter.cs" />
+    <Compile Include="FilterByAnnualCheckUp\FilterByAnnualViewModel.cs" />
+    <Compile Include="FilterByAnnualCheckUp\IFilterByAnnualViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AddCustomer\" />
-    <Folder Include="FilterByAnnualCheckUp\" />
     <Folder Include="FilterByInsurance\" />
     <Folder Include="FilterByVignette\" />
   </ItemGroup>
